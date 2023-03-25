@@ -1,0 +1,23 @@
+on:
+  push:
+    branches:
+    - main
+jobs:
+  my_job:
+    name: Semgrep
+    runs-on: ubuntu-18.04
+    container:
+      image: returntocorp/semgrep
+      
+    steps:
+    
+    - name: clone application source code
+      uses: actions/checkout@v3
+    
+    - name: full scan
+      run: |
+        semgrep \
+          --sarif --output report.sarif \
+          --metrics=off \
+          --config="p/default"
+          
