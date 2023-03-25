@@ -28,7 +28,7 @@ if __name__ == '__main__':
     plot_dataframe(excel_to_dataframe('assets/participants.xlsx', sheet_name='Sheet1'),x="name",
                     y="ecContribution" , figsize=(100, 30), fontsize=1,
                     title="EC Contribution per Project")
-    print(type(excel_to_dataframe('assets/projects.xlsx', sheet_name='Sheet1')["totalcost_col"]))
+    print(type(excel_to_dataframe('assets/projects.xlsx', sheet_name='Sheet1')["totalCost"]))
     print(statistic(excel_to_dataframe('assets/projects.xlsx',
-                                       sheet_name='Sheet1')["totalcost_col"]))
+                                       sheet_name='Sheet1')["totalCost"]))
     
