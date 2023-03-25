@@ -10,20 +10,22 @@ def excel_to_dataframe(file: str, **kwargs: str) -> pd.DataFrame:
 
 def plot_dataframe(df_to_plot: pd.DataFrame) -> None:
     """Plots dataframe"""
-    figure = df_to_plot.plot(kind='bar', x='shortName', y='ecContribution', fontsize=5, figsize=(10, 5),
-                    title="EC Contribution per Project")
+    figure = df_to_plot.plot(kind='bar', x='shortName', y='ecContribution', fontsize=5,
+                              figsize=(10, 5),
+                              title="EC Contribution per Project")
     figure.set_ylim(0, df_to_plot["ecContribution"].max())
     plt.show()
 
 
-def annual_grants(df: pd.DataFrame) -> pd.DataFrame or None:
+def annual_grants(df_of_paraticipant_file: pd.DataFrame) -> pd.DataFrame or None:
     """function that returns a dataframe with the annual grants"""
     try:
-        df = df[["shortName", "ecContribution"]]
-        return df
-    
+        df_of_paraticipant_file = df_of_paraticipant_file[["shortName", "ecContribution"]]
+        return df_of_paraticipant_file
+
     except KeyError:
         print("Key not in dataframe")
+        return None
 
 
 def statistic(cost_col: pd.DataFrame ) -> None:
@@ -32,7 +34,7 @@ def statistic(cost_col: pd.DataFrame ) -> None:
     print("var     ", np.var(cost_col))
     print("skew    ", cost_col.skew())
     _, bin_edges = np.histogram(cost_col, bins=18)
-    _, ax = plt.subplots()
+    _, ax = plt.subplots() # pylint: disable=C0103
     ax.hist(cost_col, bin_edges, cumulative = False)
     ax.set_xlabel('cost_col')
     ax.set_ylabel('Frequency')
