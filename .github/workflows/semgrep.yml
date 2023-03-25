@@ -24,7 +24,8 @@ jobs:
           --config=p/default \
           --config=p/python \
           --config=p/owasp-top-ten \
-          --config=p/cwe-top-25
+          --config=p/cwe-top-25 \
+          --config=p/r2c-best-practices
           
   
 
