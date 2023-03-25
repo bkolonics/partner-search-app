@@ -40,6 +40,17 @@ def statistic(cost_col: pd.DataFrame ) -> None:
     ax.set_ylabel('Frequency')
     plt.show()
 
+def validate_country_acronym(aconym: str) -> str:
+    """function valideates country acronym"""
+    if len(aconym) != 2:
+        raise ValueError("Country acronym must be 2 characters long")
+
+    if aconym not in excel_to_dataframe('assets/countries.xlsx',
+                                        sheet_name='Countries')["Acronym"].values:
+        raise ValueError("Country acronym not in list of countries")
+
+    return aconym
+
 
 if __name__ == '__main__':
 
@@ -47,4 +58,5 @@ if __name__ == '__main__':
                                                      sheet_name='Sheet1')))
     print(statistic(excel_to_dataframe('assets/projects.xlsx',
                                        sheet_name='Sheet1')["totalCost"]))
-    
+
+    selected_country = validate_country_acronym(input("Enter country acronym: "))
