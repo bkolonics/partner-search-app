@@ -1,3 +1,4 @@
+# pylint: disable=C0114
 import pandas as pd
 
 def excel_to_dataframe(file: str, **kwargs: str) -> pd.DataFrame:
