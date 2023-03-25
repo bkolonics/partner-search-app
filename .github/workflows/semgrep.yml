@@ -1,3 +1,5 @@
+name: Semgrep
+
 on:
   push:
     branches:
@@ -21,3 +23,10 @@ jobs:
           --metrics=off \
           --config="p/default"
           
+  
+
+    - name: Save report as pipeline artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: report.sarif
+        path: report.sarif        
