@@ -21,7 +21,10 @@ jobs:
         semgrep \
           --sarif --output report.sarif \
           --metrics=off \
-          --config="p/default"
+          --config="p/default,
+                    p/python,
+                    p/owasp-top-ten,
+                    p/cwe-top-25"
           
   
 
