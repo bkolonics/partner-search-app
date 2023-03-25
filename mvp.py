@@ -12,6 +12,7 @@ def plot_dataframe(df: pd.DataFrame, **kwargs: str) -> None:
     fig.savefig('EC Contribution per Project.pdf', bbox_inches='tight')
 
 def statistic(Cost: pd.DataFrame ) -> None:
+    """function that print statistics about dataframe"""
     print(Cost.describe())
     print("var     ", np.var(Cost))
     print("skew    ", Cost.skew())
