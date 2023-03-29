@@ -65,8 +65,8 @@ def received_grants_per_partner_for_country(country: str, save: bool = False) ->
     df_of_participants = df_of_participants[
         ['shortName', 'name', 'activityType', 'organizationURL', 'ecContribution']]
     count_project = df_of_participants.groupby('shortName').size().reset_index(name='count_project')
-    sum_ecContribution = df_of_participants.groupby(
-        'shortName')['ecContribution'].sum().reset_index(name='sum_ecContribution') # pylint: disable=C0103
+    sum_ecContribution = df_of_participants.groupby(    # pylint: disable=C0103
+        'shortName')['ecContribution'].sum().reset_index(name='sum_ecContribution')
     df_of_participants = pd.merge(df_of_participants, count_project, on='shortName')
     df_of_participants = pd.merge(df_of_participants, sum_ecContribution, on='shortName')
     df_of_participants = df_of_participants.drop_duplicates(subset='name', keep="first")
