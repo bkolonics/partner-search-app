@@ -62,9 +62,11 @@ def received_grants_per_partner_for_country(country: str, save: bool = False) ->
 
 
     df_of_participants = df_of_participants[df_of_participants["country"] == country]
-    df_of_participants = df_of_participants[['shortName', 'name', 'activityType', 'organizationURL', 'ecContribution']]
+    df_of_participants = df_of_participants[
+        ['shortName', 'name', 'activityType', 'organizationURL', 'ecContribution']]
     count_project = df_of_participants.groupby('shortName').size().reset_index(name='count_project')
-    sum_ecContribution = df_of_participants.groupby('shortName')['ecContribution'].sum().reset_index(name='sum_ecContribution')
+    sum_ecContribution = df_of_participants.groupby(
+        'shortName')['ecContribution'].sum().reset_index(name='sum_ecContribution') # pylint: disable=C0103
     df_of_participants = pd.merge(df_of_participants, count_project, on='shortName')
     df_of_participants = pd.merge(df_of_participants, sum_ecContribution, on='shortName')
     df_of_participants = df_of_participants.drop_duplicates(subset='name', keep="first")
@@ -74,8 +76,9 @@ def received_grants_per_partner_for_country(country: str, save: bool = False) ->
     if save:
         if not os.path.exists('output'):
             os.makedirs('output')
-        df_of_participants.to_excel(f"output/received_grants_per_partner_for_country_{country}.xlsx")
-    
+        df_of_participants.to_excel(
+            f"output/received_grants_per_partner_for_country_{country}.xlsx")
+
     return df_of_participants
 
 
