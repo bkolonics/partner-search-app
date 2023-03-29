@@ -1,4 +1,5 @@
 # pylint: disable=C0114
+import os
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -71,6 +72,8 @@ def received_grants_per_partner_for_country(country: str, save: bool = False) ->
 
 
     if save:
+        if not os.path.exists('output'):
+            os.makedirs('output')
         df_of_participants.to_excel(f"output/received_grants_per_partner_for_country_{country}.xlsx")
     
     return df_of_participants
