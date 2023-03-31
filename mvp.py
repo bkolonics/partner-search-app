@@ -11,18 +11,21 @@ def excel_to_dataframe(file: str, **kwargs: str) -> pd.DataFrame:
 
 def plot_dataframe(df_to_plot: pd.DataFrame) -> None:
     """Plots dataframe"""
-    figure = df_to_plot.plot(kind='bar', x='shortName', y='ecContribution', fontsize=5,
+    figure = df_to_plot.plot(kind='bar', x='year', y='totalCost', fontsize=5,
                               figsize=(10, 5),
-                              title="EC Contribution per Project")
-    figure.set_ylim(0, df_to_plot["ecContribution"].max())
+                              title="Total cost of projects per year")
+    figure.set_ylim(0, df_to_plot["totalCost"].max())
     plt.show()
 
 
-def annual_grants(df_of_paraticipant_file: pd.DataFrame) -> pd.DataFrame or None:
+def annual_grants(df_of_project_file: pd.DataFrame) -> pd.DataFrame or None:
     """function that returns a dataframe with the annual grants"""
     try:
-        df_of_paraticipant_file = df_of_paraticipant_file[["shortName", "ecContribution"]]
-        return df_of_paraticipant_file
+        # sum all the grants per year
+        df_of_project_file = df_of_project_file.groupby('year')['totalCost'].sum().reset_index(
+            name='totalCost')
+        print(df_of_project_file)
+        return df_of_project_file
 
     except KeyError:
         print("Key not in dataframe")
@@ -93,7 +96,7 @@ def received_grants_per_partner_for_country(country: str, save: bool = False) ->
 
 if __name__ == '__main__':
 
-    plot_dataframe(annual_grants(excel_to_dataframe('assets/participants.xlsx',
+    plot_dataframe(annual_grants(excel_to_dataframe('assets/projects.xlsx',
                                                      sheet_name='Sheet1')))
     statistic(excel_to_dataframe('assets/projects.xlsx',
                                        sheet_name='Sheet1')["totalCost"])
