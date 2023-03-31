@@ -31,9 +31,9 @@ def annual_grants(df_of_paraticipant_file: pd.DataFrame) -> pd.DataFrame or None
 
 def statistic(cost_col: pd.DataFrame ) -> None:
     """function that print statistics about dataframe"""
-    print(cost_col.describe())
-    print("var     ", np.var(cost_col))
-    print("skew    ", cost_col.skew())
+    print(cost_col.describe().reset_index().to_string(index=False))
+    print("var ", np.var(cost_col))
+    print("skew ", cost_col.skew())
     _, bin_edges = np.histogram(cost_col, bins=18)
     _, ax = plt.subplots() # pylint: disable=C0103
     ax.hist(cost_col, bin_edges, cumulative = False)
@@ -95,8 +95,8 @@ if __name__ == '__main__':
 
     plot_dataframe(annual_grants(excel_to_dataframe('assets/participants.xlsx',
                                                      sheet_name='Sheet1')))
-    print(statistic(excel_to_dataframe('assets/projects.xlsx',
-                                       sheet_name='Sheet1')["totalCost"]))
+    statistic(excel_to_dataframe('assets/projects.xlsx',
+                                       sheet_name='Sheet1')["totalCost"])
 
     selected_country = validate_country_acronym(input("Enter country acronym: "))
     print(received_grants_per_partner_for_country(selected_country , save=True))
