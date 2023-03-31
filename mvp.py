@@ -73,6 +73,7 @@ def received_grants_per_partner_for_country(country: str, save: bool = False) ->
         'shortName')['count_coordinator'].sum().reset_index(name='count_coordinator')
     df_of_participants = df_of_participants[
         ['shortName', 'name', 'activityType', 'organizationURL', 'ecContribution', 'role']]
+    df_of_participants = df_of_participants.drop(columns=['ecContribution', 'role'])
     df_of_participants = pd.merge(df_of_participants, count_project, on='shortName')
     df_of_participants = pd.merge(df_of_participants, sum_ecContribution, on='shortName')
     df_of_participants = pd.merge(df_of_participants, sum_coordinator, on='shortName')
